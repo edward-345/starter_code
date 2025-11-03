@@ -1,0 +1,139 @@
+"""STA314 Homework 3.
+
+Copyright and Usage Information
+===============================
+
+This file is provided solely for the personal and private use of students
+taking STA314 at the University of Toronto St. George campus. All forms of
+distribution of this code, whether as given or with any changes, are
+expressly prohibited.
+"""
+
+
+from utils import *
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def logistic_predict(weights, data):
+    """ Compute the probabilities predicted by the logistic classifier.
+
+    Note: N is the number of examples
+          D is the number of features per example
+
+    :param weights: A vector of weights with dimension (D + 1) x 1, where
+    the last element corresponds to the bias (intercept).
+    :param data: A matrix with dimension N x D, where each row corresponds to
+    one data point.
+    :return: A vector of probabilities with dimension N x 1, which is the output
+    to the classifier.
+    """
+    #####################################################################
+    # TODO:                                                             #
+    #####################################################################
+    y = None
+    #####################################################################
+    #                       END OF YOUR CODE                            #
+    #####################################################################
+    return y
+
+
+def evaluate(targets, y):
+    """ Compute evaluation metrics.
+
+    Note: N is the number of examples
+          D is the number of features per example
+
+    :param targets: A vector of targets with dimension N x 1.
+    :param y: A vector of probabilities with dimension N x 1.
+    :return: A tuple (ce, frac_correct)
+        WHERE
+        ce: (float) Averaged cross entropy
+        frac_correct: (float) Fraction of inputs classified correctly
+    """
+    #####################################################################
+    # TODO:                                                             #
+    #####################################################################
+    ce = None
+    frac_correct = None
+    #####################################################################
+    #                       END OF YOUR CODE                            #
+    #####################################################################
+    return ce, frac_correct
+
+
+def logistic(weights, data, targets, hyperparameters):
+    """ Calculate the cost of penalized logistic regression and its derivatives
+    with respect to weights. Also return the predictions.
+
+    Note: N is the number of examples
+          D is the number of features per example
+
+    :param weights: A vector of weights with dimension (D + 1) x 1, where
+    the last element corresponds to the bias (intercept).
+    :param data: A matrix with dimension N x D, where each row corresponds to
+    one data point.
+    :param targets: A vector of targets with dimension N x 1.
+    :param hyperparameters: The hyperparameter dictionary.
+    :returns: A tuple (f, df, y)
+        WHERE
+        f: The average of the loss over all data points, plus a penalty term.
+           This is the objective that we want to minimize.
+        df: (D+1) x 1 vector of derivative of f w.r.t. weights.
+        y: N x 1 vector of probabilities.
+    """
+    y = logistic_predict(weights, data)
+    lambd = hyperparameters["weight_regularization"]
+    #####################################################################
+    # TODO:                                                             #
+    #####################################################################
+    # Exclude the bias parameter when calculating weight regularization.
+    f = None
+    df = None
+    #####################################################################
+    #                       END OF YOUR CODE                            #
+    #####################################################################
+    return f, df, y
+
+
+def run_logistic_regression():
+    # Load all necessary datasets:
+    x_train, y_train = load_train()
+    # If you would like to use digits_train_small, please uncomment this line:
+    # x_train, y_train = load_train_small()
+    x_valid, y_valid = load_valid()
+    x_test, y_test = load_test()
+
+    n, d = x_train.shape
+
+    #####################################################################
+    # TODO:                                                             #
+    # Set the hyperparameters for the learning rate, the number         #
+    # of iterations                                                     #
+    #####################################################################
+    hyperparameters = {
+        "learning_rate": None,
+        "weight_regularization": 0.,
+        "num_iterations": None
+    }
+    #####################################################################
+    #                       END OF YOUR CODE                            #
+    #####################################################################
+
+    # Begin learning with gradient descent
+    #####################################################################
+    # TODO:                                                             #
+    # Modify this section to perform gradient descent, create plots,    #
+    # compute test error, etc ...                                       #
+    #####################################################################
+    weights = np.zeros((d + 1, 1))
+    for t in range(hyperparameters["num_iterations"]):
+        pass
+    #####################################################################
+    #                       END OF YOUR CODE                            #
+    #####################################################################
+
+
+if __name__ == "__main__":
+    run_logistic_regression()
