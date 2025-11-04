@@ -98,9 +98,15 @@ def logistic(weights, data, targets, hyperparameters):
     # TODO:                                                             #
     #####################################################################
     # Exclude the bias parameter when calculating weight regularization.
+    nb_weights = np.delete(weights, -1)
+    f = (np.mean(-targets*np.log(y)-(1.0-targets)*np.log(1.0-y)) 
+    + (lambd/2)*(np.linalg.norm(nb_weights))**2)
     
-    f = None
-    df = None
+    N = data.shape[0]
+    ones = np.ones((N, 1))
+    design = np.hstack((data, ones))
+    zb_weights = np.r_[weights[:-1], 0]
+    df = np.dot(np.transpose(design),(y-targets))/N +lambd*zb_weights
     #####################################################################
     #                       END OF YOUR CODE                            #
     #####################################################################
