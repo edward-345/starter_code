@@ -39,7 +39,7 @@ def logistic_predict(weights, data):
 
     z = np.dot(design, weights)
     
-    y = 1/(1 + np.exp(-z))
+    y = sigmoid(z)
     #####################################################################
     #                       END OF YOUR CODE                            #
     #####################################################################
@@ -62,8 +62,10 @@ def evaluate(targets, y):
     #####################################################################
     # TODO:                                                             #
     #####################################################################
-    ce = None
-    frac_correct = None
+    ce = np.mean(-targets*np.log(y)-(1.0-targets)*np.log(1.0-y))
+    
+    binary_y = (y >= 0.5)
+    frac_correct = np.mean(binary_y == targets)
     #####################################################################
     #                       END OF YOUR CODE                            #
     #####################################################################
@@ -96,6 +98,7 @@ def logistic(weights, data, targets, hyperparameters):
     # TODO:                                                             #
     #####################################################################
     # Exclude the bias parameter when calculating weight regularization.
+    
     f = None
     df = None
     #####################################################################
