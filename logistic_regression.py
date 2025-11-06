@@ -14,7 +14,7 @@ from utils import *
 
 import matplotlib.pyplot as plt
 import numpy as np
-
+import pandas as pd
 
 def logistic_predict(weights, data):
     """ Compute the probabilities predicted by the logistic classifier.
@@ -129,9 +129,9 @@ def run_logistic_regression():
     # of iterations                                                     #
     #####################################################################
     hyperparameters = {
-        "learning_rate": 0.01,
+        "learning_rate": 0.00001,
         "weight_regularization": 0.,
-        "num_iterations": 200
+        "num_iterations": 2000
     }
     #####################################################################
     #                       END OF YOUR CODE                            #
@@ -150,7 +150,8 @@ def run_logistic_regression():
     for t in range(hyperparameters["num_iterations"]):
         f, df, y = logistic(weights, x_train, y_train, hyperparameters)
         weights = weights - hyperparameters["learning_rate"]*df
-        #train_ce, train_acc = evaluate(y_train, y)
+    
+    train_ce, train_acc = evaluate(y_train, y)
     
     #Validation
     pred_y_valid = logistic_predict(weights, x_valid)
@@ -160,7 +161,8 @@ def run_logistic_regression():
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
-    return weights, (val_ce, val_acc), (test_ce, test_acc)
+    print((train_ce, train_acc), (val_ce, val_acc))
+    #return (val_ce, val_acc), (test_ce, test_acc)
 
     #####################################################################
     #                       END OF YOUR CODE                            #
