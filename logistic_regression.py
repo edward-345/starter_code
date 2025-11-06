@@ -161,25 +161,27 @@ def run_logistic_regression():
         pred_y_valid = logistic_predict(weights, x_valid)
         val_ce, val_acc = evaluate(y_valid, pred_y_valid)
         val_ce_list.append(val_ce)
-
     
-    #Plotting
+    #Plotting Iterations vs Cross Entropy during training 
     plt.plot(iterations, train_ce_list, color = "blue", label = "Training CE")
     plt.plot(iterations, val_ce_list, color = "orange", label = "Validation CE")
 
     plt.xlabel("Iterations")
     plt.ylabel("Cross Entropy")
     plt.title("Iterations vs Cross Entropy at LR = .21")
-    plt.legend()
-    plt.show()
+    plt.legend()    
+    #plt.show()
 
+    #Plotting weight regularization vs Validation CE
+    wr = [0., 0.001, 0.01, 0.1, 1.0]
+    valid_ce = [0.052368102670463296]
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
     #print((train_ce, train_acc), (val_ce, val_acc))
-    print(test_ce, test_acc)
+    print((val_ce, val_acc),(test_ce, test_acc))
 
     #####################################################################
     #                       END OF YOUR CODE                            #
