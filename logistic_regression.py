@@ -144,25 +144,42 @@ def run_logistic_regression():
     # compute test error, etc ...                                      #
     #####################################################################
     #Storage
-    
+    train_ce_list = []
+    val_ce_list = []
+    iterations = list(range(1, hyperparameters["num_iterations"] + 1))
+
     #Training 
     weights = np.zeros((d + 1, 1))
     for t in range(hyperparameters["num_iterations"]):
         f, df, y = logistic(weights, x_train, y_train, hyperparameters)
         weights = weights - hyperparameters["learning_rate"]*df
+
+        train_ce, train_acc = evaluate(y_train, y)
+        train_ce_list.append(train_ce)
+        
+        #Validation for plotting
+        pred_y_valid = logistic_predict(weights, x_valid)
+        val_ce, val_acc = evaluate(y_valid, pred_y_valid)
+        val_ce_list.append(val_ce)
+
     
-    train_ce, train_acc = evaluate(y_train, y)
-    
-    #Validation
-    pred_y_valid = logistic_predict(weights, x_valid)
-    val_ce, val_acc = evaluate(y_valid, pred_y_valid)
+    #Plotting
+    plt.plot(iterations, train_ce_list, color = "blue", label = "Training CE")
+    plt.plot(iterations, val_ce_list, color = "orange", label = "Validation CE")
+
+    plt.xlabel("Iterations")
+    plt.ylabel("Cross Entropy")
+    plt.title("Iterations vs Cross Entropy at LR = .21")
+    plt.legend()
+    plt.show()
+
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
     #print((train_ce, train_acc), (val_ce, val_acc))
-    print((val_ce, val_acc), (test_ce, test_acc))
+    print(test_ce, test_acc)
 
     #####################################################################
     #                       END OF YOUR CODE                            #
