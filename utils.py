@@ -10,7 +10,6 @@ expressly prohibited.
 """
 
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -100,6 +99,8 @@ def extract_digit_pixels(digit_array, index):
 def show_pane(top_digits, bottom_digits):
     """ Displays two rows of digits on the screen.
     """
+    import matplotlib.pyplot as plt
+
     all_digits = top_digits + bottom_digits
     fig, axes = plt.subplots(nrows=2, ncols=int(len(all_digits) / 2))
     for axis, digit in zip(axes.reshape(-1), all_digits):
@@ -114,6 +115,7 @@ def show_pane(top_digits, bottom_digits):
 
 
 def save_images(images, filename):
+    import matplotlib.pyplot as plt
     fig = plt.figure(1)
     fig.clf()
     ax = fig.add_subplot(111)

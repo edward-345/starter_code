@@ -105,7 +105,7 @@ def logistic(weights, data, targets, hyperparameters):
     N = data.shape[0]
     ones = np.ones((N, 1))
     design = np.hstack((data, ones))
-    zb_weights = np.r_[weights[:-1], 0]
+    zb_weights = np.r_[weights[:-1], [[0.0]]]
     df = np.dot(np.transpose(design),(y-targets))/N +lambd*zb_weights
     #####################################################################
     #                       END OF YOUR CODE                            #
@@ -129,9 +129,9 @@ def run_logistic_regression():
     # of iterations                                                     #
     #####################################################################
     hyperparameters = {
-        "learning_rate": None,
+        "learning_rate": 0.01,
         "weight_regularization": 0.,
-        "num_iterations": None
+        "num_iterations": 200
     }
     #####################################################################
     #                       END OF YOUR CODE                            #
@@ -141,11 +141,27 @@ def run_logistic_regression():
     #####################################################################
     # TODO:                                                             #
     # Modify this section to perform gradient descent, create plots,    #
-    # compute test error, etc ...                                       #
+    # compute test error, etc ...                                      #
     #####################################################################
+    #Storage
+    
+    #Training 
     weights = np.zeros((d + 1, 1))
     for t in range(hyperparameters["num_iterations"]):
-        pass
+        f, df, y = logistic(weights, x_train, y_train, hyperparameters)
+        weights = weights - hyperparameters["learning_rate"]*df
+        #train_ce, train_acc = evaluate(y_train, y)
+    
+    #Validation
+    pred_y_valid = logistic_predict(weights, x_valid)
+    val_ce, val_acc = evaluate(y_valid, pred_y_valid)
+
+    #Testing
+    pred_y_test = logistic_predict(weights, x_test)
+    test_ce, test_acc = evaluate(y_test, pred_y_test)
+
+    return weights, (val_ce, val_acc), (test_ce, test_acc)
+
     #####################################################################
     #                       END OF YOUR CODE                            #
     #####################################################################
