@@ -130,7 +130,7 @@ def run_logistic_regression():
     #####################################################################
     hyperparameters = {
         "learning_rate": 0.21,
-        "weight_regularization": 0.001,
+        "weight_regularization": 0.01,
         "num_iterations": 2000
     }
     #####################################################################
@@ -178,7 +178,7 @@ def run_logistic_regression():
     wr = [0., 0.001, 0.01, 0.1, 1.0]
     valid_ce_regular = [0.0524, 0.0544, 0.0786, 0.1753, 0.4112] # regular dataset
 
-    valid_ce_small = [0.5202, 0.5035] # using small dataset
+    valid_ce_small = [0.5202, 0.5035, 0.4921] # using small dataset
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
