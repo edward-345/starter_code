@@ -161,8 +161,8 @@ def run_logistic_regression():
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
-    print((train_ce, train_acc), (val_ce, val_acc))
-    #return (val_ce, val_acc), (test_ce, test_acc)
+    #print((train_ce, train_acc), (val_ce, val_acc))
+    print((val_ce, val_acc), (test_ce, test_acc))
 
     #####################################################################
     #                       END OF YOUR CODE                            #
