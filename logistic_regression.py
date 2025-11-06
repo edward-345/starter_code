@@ -129,7 +129,7 @@ def run_logistic_regression():
     # of iterations                                                     #
     #####################################################################
     hyperparameters = {
-        "learning_rate": 0.001,
+        "learning_rate": 0.0025,
         "weight_regularization": 0.,
         "num_iterations": 2000
     }
