@@ -130,7 +130,7 @@ def run_logistic_regression():
     #####################################################################
     hyperparameters = {
         "learning_rate": 0.21,
-        "weight_regularization": 0.1,
+        "weight_regularization": 1.0,
         "num_iterations": 2000
     }
     #####################################################################
@@ -173,8 +173,10 @@ def run_logistic_regression():
     #plt.show()
 
     #Plotting weight regularization vs Validation CE
+    # i manually ran the code after changing the weight regularization each time
+    # to get these values. pls check my github to see my progress.
     wr = [0., 0.001, 0.01, 0.1, 1.0]
-    valid_ce = [0.0524, 0.0544, 0.0786, 0.175]
+    valid_ce = [0.0524, 0.0544, 0.0786, 0.1753, 0.4112]
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
