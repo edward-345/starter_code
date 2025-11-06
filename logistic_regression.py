@@ -115,9 +115,9 @@ def logistic(weights, data, targets, hyperparameters):
 
 def run_logistic_regression():
     # Load all necessary datasets:
-    # x_train, y_train = load_train()
+    x_train, y_train = load_train()
     # If you would like to use digits_train_small, please uncomment this line:
-    x_train, y_train = load_train_small()
+    # x_train, y_train = load_train_small()
     x_valid, y_valid = load_valid()
     x_test, y_test = load_test()
 
@@ -130,7 +130,7 @@ def run_logistic_regression():
     #####################################################################
     hyperparameters = {
         "learning_rate": 0.21,
-        "weight_regularization": 0.01,
+        "weight_regularization": 1.0,
         "num_iterations": 2000
     }
     #####################################################################
@@ -177,15 +177,16 @@ def run_logistic_regression():
     # to get these values. pls check my github to see my progress.
     wr = [0., 0.001, 0.01, 0.1, 1.0]
     valid_ce_regular = [0.0524, 0.0544, 0.0786, 0.1753, 0.4112] # regular dataset
+    valid_ce_small = [0.4973, 0.4974, 0.4987, 0.5145, 0.5815] # using small dataset with LR = .005
 
-    valid_ce_small = [0.5202, 0.5035, 0.4921] # using small dataset
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
     #print((train_ce, train_acc), (val_ce, val_acc))
-    print((val_ce, val_acc),(test_ce, test_acc))
+    #print((val_ce, val_acc),(test_ce, test_acc))
+    print(round(val_ce, 4))
 
     #####################################################################
     #                       END OF YOUR CODE                            #
