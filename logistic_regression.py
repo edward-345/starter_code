@@ -130,7 +130,7 @@ def run_logistic_regression():
     #####################################################################
     hyperparameters = {
         "learning_rate": 0.21,
-        "weight_regularization": 1.0,
+        "weight_regularization": 0.,
         "num_iterations": 2000
     }
     #####################################################################
@@ -163,14 +163,15 @@ def run_logistic_regression():
         val_ce_list.append(val_ce)
     
     #Plotting Iterations vs Cross Entropy during training 
+    plt.figure()
     plt.plot(iterations, train_ce_list, color = "blue", label = "Training CE")
     plt.plot(iterations, val_ce_list, color = "orange", label = "Validation CE")
-
+    
     plt.xlabel("Iterations")
     plt.ylabel("Cross Entropy")
     plt.title("Iterations vs Cross Entropy at LR = .21")
     plt.legend()    
-    #plt.show()
+    plt.show()
 
     #Plotting weight regularization vs Validation CE
     # i manually ran the code after changing the weight regularization each time
@@ -179,14 +180,27 @@ def run_logistic_regression():
     valid_ce_regular = [0.0524, 0.0544, 0.0786, 0.1753, 0.4112] # regular dataset
     valid_ce_small = [0.4973, 0.4974, 0.4987, 0.5145, 0.5815] # using small dataset with LR = .005
 
+    plt.figure()
+    plt.scatter(wr, valid_ce_regular, facecolors = 'none', edgecolors='blue')
+    plt.xlabel("Weight Regularization Values")
+    plt.ylabel("Validation CE")
+    plt.title("Weight Regularization vs Validation CE at LR = .21") 
+    plt.show()
+
+    plt.figure()
+    plt.scatter(wr, valid_ce_small, facecolors = 'none', edgecolors='blue')
+    plt.xlabel("Weight Regularization Values")
+    plt.ylabel("Validation CE")
+    plt.title("Weight Regularization vs Validation CE at LR = .005 using Small Dataset") 
+    plt.show()
 
     #Testing
     pred_y_test = logistic_predict(weights, x_test)
     test_ce, test_acc = evaluate(y_test, pred_y_test)
 
     #print((train_ce, train_acc), (val_ce, val_acc))
-    #print((val_ce, val_acc),(test_ce, test_acc))
-    print(round(val_ce, 4))
+    print((val_ce, val_acc),(test_ce, test_acc))
+    #print(round(val_ce, 4))
 
     #####################################################################
     #                       END OF YOUR CODE                            #
